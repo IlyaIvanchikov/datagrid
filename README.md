@@ -1,98 +1,68 @@
-# datagrid  
-  
-Отобразить данные в интерактивной таблице - частая задача во фронтенд разработке.  
-В этом задании мы создадим многофункциональную таблицу используя React & Redux.  
-   
-## Функциональные требования  
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Таблица может содержать любые данные.  
-  
-Источником данных может быть любой сторонний API, локальный json файл или можно  
-генерировать случайные данные, например с помощью faker.js.
-  
-* Минимум 1000 рядов.
-* Минимум 7 колонок.  
-* Значения в колонках минимум трёх разных типов из списка ниже.  
-  
-#### Примеры типов для ячеек  
-  * string - отображается как есть, но но надо либо ограничить длину строки, либо использовать `text-overflow: ellipsis` 
-  * integer / decimal - числа обычно выравниваются по правой стороне и форматируются с учётом локали (см. `Number.toLocaleString`). 
-  * enum - строка принимающая ограниченный набор (3-10) значений.  
-  * local datetime - дата и/или время в виде строки.  
-  * instant - время как в `Date.getTime()`  
-  * составные объекты - например `money: {currency: 'PHP', amount: 7.4}`  
-  * boolean  
-  
-#### Интерактивные функции таблицы
-* Сортировка
-* Фильтрация
-* Выбор рядов и действия с ними
+## Available Scripts
 
-Подробные требования к каждой из функций в критериях оценки.
+In the project directory, you can run:
 
-## Технические требования  
- 
-* Для удобства проверки задания поддержка Redux DevTools должна быть не только в девелоперской версии (aka `npm run start`), но и в "продакшн" сборке (aka `npm run build`).
- 
-### Нужно использовать  
-* React  
-* Redux with DevTools
-* приватный репозиторий на github  
-* хостинг для готового приложения - netlify, heroku, gh-pages или любой другой  
-  
-### Можно использовать  
-* create-react-app  
-* lodash  
-* TypeScript 
-* bootstrap и любые другие css фреймворки 
-* react-select и подобные простые компоненты для фильтров  
-* библиотека [react-window](https://github.com/bvaughn/react-window) для виртуализации рядов таблицы.
-* библиотеки для форматирования значений в ячейках (для чисел и времени)  
-* библиотеки для генерации данных  
-  
-### Нельзя использовать  
-* любые другие компоненты из сторонних библиотек  
-* любые другие библиотеки, реализующие ключевую функциональность задания (например - сортировка и фильтрация).
+### `yarn start`
 
-### Можно не использовать
-* saga, thunk и любой другой middleware для сайд эффектов. Однако некоторые требования в hacker scope подразумевают использование middleware.
- 
-## Критерии оценки:  
-**Максимальный балл за задание: 300 баллов**  
-  
-- **Non-interactive scope +30**  
-  - Данные отображаются в таблице в соответствии с функциональными требованиями. +30
-    
-    Подумайте, какую лучше выбрать технику вёрстки таблицы. Обычные блоки, блоки с абсолютной позицией, \<table>, flexbox, etc - правильного варианта нет, но от выборанной техники будет зависеть реализация некоторых из требований ниже.
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-* **Basic scope +70**  
-  - Реализована сортировка по одной колонке. +10
-  - Понятная индикация, по какой колонке применена сортировка и в каком направлении (по возрастанию или убыванию) +10
-  - Реализована фильтрация по введённому тексту (поиск подстроки как минимум в значениях одной колонки). +10
-  - (В дополнение к предыдущему) При фильтрации по тексту производится поиск подстроки в нескольких колонках. +10 
-  - Реализована фильтрация по boolean колонке с помощью UI-элемента toggle иди аналогичного. +10
-  - Реализована фильтрация по enum колонке. Можно использовать react-select или аналогичный UI-элемент. +10
-  - (В дополнение к предыдущему) При фильтрации по enum колонке можно выбрать несколько значений (multiselect UI-элемент). +10 
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
 
-- **Advanced scope +150**  
-  - С зажатым shift можно сортировать по нескольким колонкам. +20
-  - Реализована [виртуализация рядов](https://web.dev/virtualize-long-lists-react-window/) для отображении большого объёма данных. +30.
-    
-    Можно использовать библиотеку react-window для виртуализации, но самостоятельная имплементация этой техники одобряется и поощрается авторами задания.
-  - Функцию виртуализации можно выключить c помощью toggle и сравнить скорость работы и отрисовки страницы. +10
-  - Ряд таблицы можно выделить кликом и применить к нему какое-либо действие. Выделенный ряд должен отличатся визуально. Самый простой пример действия - удаление из таблицы, но можно придумать любое другое. +20
-  - (В дополнение к предыдущему) С помощью зажатых Ctrl/shift и/или колонки чекбоксов слева можно выделить одновременно *несколько* рядов и применить к ним действие.  +20
-  - Можно настраивать видимость колонок (всех или некоторых) [демо1](https://www.datatables.net/examples/api/show_hide.html), [демо2](http://filamentgroup.github.io/tablesaw/demo/toggle.html) +20
-  - Фиксированный заголовок таблицы aka sticky header, то есть при скролле таблицы строка с названиями колонок остаётся видна поверх данных. +10
-  - Фиксированная левая колонка. Принцип тот же, что и для sticky header, но левая колонка (как правило идентифицирующая данные в ряде, например - имя человека) остаётся видна при горизонтальном скролле. +20
+### `yarn test`
 
-- **Hacker scope +50**  
-  - Сохранение значений для сортировки, фильтрации, видимости колонок (если реализовано) сохранаются в localStorage так, что при обновлении страницы состояние таблицы сохраняется. +20
-  - Экспорт данных в CSV файл (только видимые ряды с сохранением сортировки). +20
-  - Значения фильтров для текстовых и enum колонок можно передавать в querystring (приоритет выше, чем у localStorage). +10
+Launches the test runner in the interactive watch mode.<br />
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-## Штрафы  
-- ошибки в консоли, связанные с работой приложения: -10  
-- любой сбой/поломка приложения, связанная с действиями пользователя: -20  
-- нет поддержки Redux DevTools в продакшн сборке: -10
-- заметные подтормаживания в работе на более-менее современном десктопе: -10
+### `yarn build`
+
+Builds the app for production to the `build` folder.<br />
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.<br />
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `yarn eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+
+### Analyzing the Bundle Size
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+### Making a Progressive Web App
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `yarn build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
