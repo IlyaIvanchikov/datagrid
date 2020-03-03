@@ -17,7 +17,9 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "bootstrap": "^4.4.1",
     "react": "^16.13.0",
+    "react-bootstrap": "^1.0.0-beta.17",
     "react-dom": "^16.13.0",
     "react-scripts": "3.4.0"
   },
@@ -52,10 +54,15 @@
     "prettier": "^1.19.1"
   },
   "lint-staged": {
-    "*.{js, jsx}": [
+    "src/*.{js,jsx,ts,tsx,json,css,scss,md}": [
       "node_modules/.bin/eslint",
       "prettier --write",
       "git add"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
