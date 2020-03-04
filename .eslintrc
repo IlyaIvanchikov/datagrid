@@ -4,12 +4,14 @@
       "prettier"
     ],
     "rules": {
+      "react-hooks/rules-of-hooks": "error",
       "jsx-quotes": [
         1,
         "prefer-double"
       ]
     },
     "plugins": [
-      "prettier"
+      "prettier",
+      "react-hooks"
     ]
   }
