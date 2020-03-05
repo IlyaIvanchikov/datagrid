@@ -1,0 +1,21 @@
+.table-a {
+    color: #ceadad;
+    text-decoration: none;
+    background-color: transparent;
+    outline: none;
+    cursor: pointer;
+    transition: color .3s;
+}
+
+.table-string {
+    text-overflow: ellipsis;
+    width: 15%;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 0;
+    text-overflow: ellipsis;
+}
+
+.table {
+    width: 100%;
+}

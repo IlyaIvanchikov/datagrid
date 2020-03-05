@@ -6,7 +6,7 @@ import data from '../../api/students'
 const info = data.data
 
 const TableInfo = () => (
-  <Table striped bordered hover variant="dark">
+  <Table className="table" striped bordered hover variant="dark">
     <thead>
       <tr>
         <th>#</th>
@@ -22,8 +22,8 @@ const TableInfo = () => (
       {info.map(item => (
         <tr key={item.id}>
           <td>{item.rank}</td>
-          <td>{item.name}</td>
-          <td>{item.githubId}</td>
+          <td className="table-string">{item.name}</td>
+          <td><a className="table-a" href={item.githubId}>{item.githubId}</a></td>
           <td>{item.totalScore}</td>
           <td>{item.locationName}</td>
           <td>{item.taskResults}</td>
