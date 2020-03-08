@@ -5,13 +5,13 @@ import data from '../../api/students'
 
 const info = data.data
 
-const TableInfo = () => (
+const TableInfo = (props) => (
   <Table className="table" striped bordered hover variant="dark">
     <thead>
       <tr>
         <th>#</th>
         <th>Name</th>
-        <th>GithubId</th>
+        <th onClick={() => props.sortGitHubId('GithubId')}>GithubId</th>
         <th>TotalScore</th>
         <th>LocationName</th>
         <th>TaskResults</th>
@@ -23,7 +23,11 @@ const TableInfo = () => (
         <tr key={item.id}>
           <td>{item.rank}</td>
           <td className="table-string">{item.name}</td>
-          <td><a className="table-a" href={item.githubId}>{item.githubId}</a></td>
+          <td>
+            <a className="table-a" href={item.githubId}>
+              {item.githubId}
+            </a>
+          </td>
           <td>{item.totalScore}</td>
           <td>{item.locationName}</td>
           <td>{item.taskResults}</td>
@@ -33,6 +37,5 @@ const TableInfo = () => (
     </tbody>
   </Table>
 )
-
 
 export default TableInfo

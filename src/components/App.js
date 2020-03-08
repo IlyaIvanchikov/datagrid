@@ -1,22 +1,35 @@
-import React, { useState, useEffect, Suspense } from 'react'
+import React, { Suspense } from 'react'
 import './App.css'
+import _ from 'lodash'
 import { connect } from 'react-redux'
+import { sortGitHubId } from '../store/actions/sortGitHubId'
 import TableInfo from './Table/Table'
 import Loader from './Loader/Loader'
 
-function App() {
-  // const [isLoader, SetIsLoader] = useState(true)
 
-  // useEffect(() => {
-  //   SetIsLoader(false);
-  // })
+
+function App(props) {
+
+  console.log(props.sort)
   return (
     <div className="container">
       <Suspense fallback={<Loader />}>
-        <TableInfo />
+        {/* <TableInfo  /> */}
+        <TableInfo sortGitHubId={props.sortGitHubId}/>
       </Suspense>
     </div>
   )
 }
 
-export default App
+function mapStateToProps(state) {
+  return {
+    sort: state.sort.sortGitHubId,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    sortGitHubId: sortField => dispatch(sortGitHubId(sortField)),
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(App)
