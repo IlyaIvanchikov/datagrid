@@ -1,3 +1,4 @@
+
 import faker from 'faker'
 
 faker.seed(74)
@@ -18,5 +19,5 @@ const makeFake = idx => {
 const data = [...new Array(1000)].map((_, idx) => makeFake(idx))
 
 export default {
-  data,
+  data
 }

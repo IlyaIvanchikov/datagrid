@@ -1,9 +1,9 @@
 import React from 'react'
 import { Table } from 'react-bootstrap'
 import './Table.css'
-import data from '../../api/students'
+//import data from '../../api/students'
 
-const info = data.data
+//const info = data.data
 
 const TableInfo = (props) => (
   <Table className="table" striped bordered hover variant="dark">
@@ -19,7 +19,7 @@ const TableInfo = (props) => (
       </tr>
     </thead>
     <tbody>
-      {info.map(item => (
+      {props.data.data.map(item => (
         <tr key={item.id}>
           <td>{item.rank}</td>
           <td className="table-string">{item.name}</td>
