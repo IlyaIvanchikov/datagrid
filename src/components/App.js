@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { sortGitHubId } from '../store/actions/sortGitHubId'
 import { dataInfo } from '../store/actions/sortGitHubId'
 import TableInfo from './Table/Table'
+import TableSearch from './TableSearch/TableSearch'
 import Loader from './Loader/Loader'
 
 class App extends Component {
@@ -17,12 +18,15 @@ class App extends Component {
         {this.props.isLoading ? (
           <Loader />
         ) : (
-          <TableInfo 
+          <React.Fragment>
+            <TableSearch />
+            <TableInfo
               data={this.props.data}
               sort={this.props.sort}
               sortField={this.props.sortField}
               sortGitHubId={this.props.sortGitHubId}
-              />
+            />
+          </React.Fragment>
         )}
       </div>
     )
@@ -34,14 +38,14 @@ function mapStateToProps(state) {
     sort: state.sort.sortGitHubId,
     data: state.sort.data,
     isLoading: state.sort.isLoading,
-    sortField: state.sort.sortField
+    sortField: state.sort.sortField,
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     dataInfo: () => dispatch(dataInfo()),
-    sortGitHubId: (sortField) => dispatch(sortGitHubId(sortField)),
+    sortGitHubId: sortField => dispatch(sortGitHubId(sortField)),
   }
 }
 
