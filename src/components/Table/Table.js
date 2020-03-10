@@ -1,17 +1,14 @@
 import React from 'react'
 import { Table } from 'react-bootstrap'
 import './Table.css'
-//import data from '../../api/students'
 
-//const info = data.data
-
-const TableInfo = (props) => (
+const TableInfo = props => (
   <Table className="table" striped bordered hover variant="dark">
     <thead>
       <tr>
         <th>#</th>
         <th>Name</th>
-        <th onClick={() => props.sortGitHubId('GithubId')}>GithubId</th>
+        <th onClick={() => props.sortGitHubId('githubId')}>GithubId {props.sortField === 'githubId' ? <small>{props.sort}</small> : null}</th>
         <th>TotalScore</th>
         <th>LocationName</th>
         <th>TaskResults</th>
@@ -19,7 +16,7 @@ const TableInfo = (props) => (
       </tr>
     </thead>
     <tbody>
-      {props.data.data.map(item => (
+      {props.data.map(item => (
         <tr key={item.id}>
           <td>{item.rank}</td>
           <td className="table-string">{item.name}</td>

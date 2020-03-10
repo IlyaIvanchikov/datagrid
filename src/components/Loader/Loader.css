@@ -1,0 +1,7 @@
+.spinner-border {
+    width: 64px;
+    height: 64px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}

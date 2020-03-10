@@ -1,41 +1,48 @@
-import React, { Suspense, useEffect } from 'react'
+import React, { Component } from 'react'
 import './App.css'
-import _ from 'lodash'
 import { connect } from 'react-redux'
 import { sortGitHubId } from '../store/actions/sortGitHubId'
-//import { dataInfo } from '../store/actions/sortGitHubId'
+import { dataInfo } from '../store/actions/sortGitHubId'
 import TableInfo from './Table/Table'
 import Loader from './Loader/Loader'
-import data from '../api/students'
 
-function App(props) {
+class App extends Component {
+  componentDidMount() {
+    this.props.dataInfo()
+  }
 
-  // useEffect(() => {
-  //   props.dataInfo()
-  // },[props.data]);
-
-  return (
-    <div className="container">
-      <Suspense fallback={<Loader />}>
-        <TableInfo
-        data={data}
-        sortGitHubId={props.sortGitHubId} />
-      </Suspense>
-    </div>
-  )
+  render() {
+    return (
+      <div className="container">
+        {this.props.isLoading ? (
+          <Loader />
+        ) : (
+          <TableInfo 
+              data={this.props.data}
+              sort={this.props.sort}
+              sortField={this.props.sortField}
+              sortGitHubId={this.props.sortGitHubId}
+              />
+        )}
+      </div>
+    )
+  }
 }
 
 function mapStateToProps(state) {
   return {
     sort: state.sort.sortGitHubId,
-    data: data,
+    data: state.sort.data,
+    isLoading: state.sort.isLoading,
+    sortField: state.sort.sortField
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-   // dataInfo: () => dispatch(dataInfo()),
-    sortGitHubId: (sortField, data) => dispatch(sortGitHubId(sortField, data)),
+    dataInfo: () => dispatch(dataInfo()),
+    sortGitHubId: (sortField) => dispatch(sortGitHubId(sortField)),
   }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(App)

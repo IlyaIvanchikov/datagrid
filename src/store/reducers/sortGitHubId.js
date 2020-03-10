@@ -4,17 +4,19 @@ import { DATA } from '../actions/actionTypes'
 const initialState = {
   sortGitHubId: 'asc',
   data: [],
+  isLoading: true,
+  sortField: null
 }
 
 export default function sortGitHubId(state = initialState, action) {
   switch (action.type) {
     case DATA:
       return {
-        data: action.data,
+        ...state, data: action.data, isLoading: false
       }
     case SORT:
       return {
-        sortGitHubId: action.sortGitHubId,
+        ...state, sortGitHubId: action.sortGitHubId, data: action.data, sortField: action.sortField
       }
 
     default:

@@ -20,4 +20,5 @@ const app = (
     <App />
   </Provider>
 )
+
 ReactDOM.render(app, document.getElementById('root'))
