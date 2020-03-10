@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 import './App.css'
 import { connect } from 'react-redux'
-import { sortGitHubId } from '../store/actions/sortGitHubId'
-import { dataInfo } from '../store/actions/sortGitHubId'
+import { sortGitHubId, filterData, dataInfo } from '../store/actions/sortGitHubId'
 import TableInfo from './Table/Table'
 import TableSearch from './TableSearch/TableSearch'
+
 import Loader from './Loader/Loader'
 
 class App extends Component {
   componentDidMount() {
     this.props.dataInfo()
   }
-
   render() {
+    this.props.filterData()
     return (
       <div className="container">
         {this.props.isLoading ? (
@@ -39,6 +39,7 @@ function mapStateToProps(state) {
     data: state.sort.data,
     isLoading: state.sort.isLoading,
     sortField: state.sort.sortField,
+    search: state.search.search,
   }
 }
 
@@ -46,6 +47,7 @@ function mapDispatchToProps(dispatch) {
   return {
     dataInfo: () => dispatch(dataInfo()),
     sortGitHubId: sortField => dispatch(sortGitHubId(sortField)),
+    filterData: () =>  dispatch(filterData())
   }
 }
 

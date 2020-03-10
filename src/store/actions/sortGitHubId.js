@@ -1,4 +1,4 @@
-import { SORT, DATA } from './actionTypes'
+import { SORT, DATA, FILTER } from './actionTypes'
 import faker from 'faker'
 import _ from 'lodash';
 
@@ -14,6 +14,13 @@ export function SetSortType(sortGitHubId, data, sortField) {
 export function SetData(data) {
   return {
     type: DATA,
+    data
+  }
+}
+
+export function SetFilter(data) {
+  return {
+    type: FILTER,
     data
   }
 }
@@ -48,3 +55,17 @@ export function sortGitHubId(sortField) {
     dispatch(SetSortType(sortType, orderedData, sortField))
   }
 }
+  export function filterData() {
+    return (dispatch, getState) => {
+      const stateSort = getState().sort
+      const stateSearch = getState().search
+      if (!stateSearch.search) {
+        return stateSort.data
+      }
+  
+      const newData =  stateSort.data.filter(item => {
+        return item['name'].toLowerCase().includes(stateSearch.search.toLowerCase())
+      })
+      dispatch(SetFilter(newData))
+    }
+  }
