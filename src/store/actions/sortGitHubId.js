@@ -1,29 +1,29 @@
 import { SORT, DATA, FILTER } from './actionTypes'
 import faker from 'faker'
-import _ from 'lodash';
+import _ from 'lodash'
 
 export function SetSortType(sortGitHubId, data, sortField) {
   return {
     type: SORT,
     sortGitHubId,
     data,
-    sortField
+    sortField,
   }
 }
 
 export function SetData(data) {
   return {
     type: DATA,
-    data
+    data,
   }
 }
 
-export function SetFilter(data) {
-  return {
-    type: FILTER,
-    data
-  }
-}
+// export function SetFilter(data) {
+//   return {
+//     type: FILTER,
+//     data,
+//   }
+// }
 
 export function dataInfo() {
   return dispatch => {
@@ -48,24 +48,30 @@ export function dataInfo() {
 export function sortGitHubId(sortField) {
   return (dispatch, getState) => {
     const state = getState().sort
-    const cloneData = state.data.concat();
+    const cloneData = state.data.concat()
     const sortGitHubId = state.sortGitHubId
     const sortType = sortGitHubId === 'asc' ? 'desc' : 'asc'
-    const orderedData = _.orderBy(cloneData, sortField, sortType);
+    const orderedData = _.orderBy(cloneData, sortField, sortType)
     dispatch(SetSortType(sortType, orderedData, sortField))
   }
 }
-  export function filterData() {
-    return (dispatch, getState) => {
-      const stateSort = getState().sort
-      const stateSearch = getState().search
-      if (!stateSearch.search) {
-        return stateSort.data
-      }
-  
-      const newData =  stateSort.data.filter(item => {
-        return item['name'].toLowerCase().includes(stateSearch.search.toLowerCase())
-      })
-      dispatch(SetFilter(newData))
+export function filterData() {
+  return (dispatch, getState) => {
+    const stateSort = getState().sort
+    const stateSearch = getState().search
+    if (!stateSearch.search) {
+      return stateSort.data
     }
+
+    let newData = stateSort.data.filter(item => {
+      return item['name']
+        .toLowerCase()
+        .includes(stateSearch.search.toLowerCase())
+    })
+
+    if (!newData.length) {
+      newData = stateSort.data
+    }
+    return newData
   }
+}

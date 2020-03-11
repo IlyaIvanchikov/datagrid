@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import './App.css'
 import { connect } from 'react-redux'
-import { sortGitHubId, filterData, dataInfo } from '../store/actions/sortGitHubId'
+import {
+  sortGitHubId,
+  filterData,
+  dataInfo,
+} from '../store/actions/sortGitHubId'
 import TableInfo from './Table/Table'
 import TableSearch from './TableSearch/TableSearch'
 
@@ -11,8 +15,9 @@ class App extends Component {
   componentDidMount() {
     this.props.dataInfo()
   }
+
   render() {
-    this.props.filterData()
+    const displayData = this.props.filterData();
     return (
       <div className="container">
         {this.props.isLoading ? (
@@ -21,7 +26,7 @@ class App extends Component {
           <React.Fragment>
             <TableSearch />
             <TableInfo
-              data={this.props.data}
+              data={displayData}
               sort={this.props.sort}
               sortField={this.props.sortField}
               sortGitHubId={this.props.sortGitHubId}
@@ -47,7 +52,7 @@ function mapDispatchToProps(dispatch) {
   return {
     dataInfo: () => dispatch(dataInfo()),
     sortGitHubId: sortField => dispatch(sortGitHubId(sortField)),
-    filterData: () =>  dispatch(filterData())
+    filterData: () => dispatch(filterData()),
   }
 }
 

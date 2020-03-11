@@ -15,11 +15,11 @@ export default function sortGitHubId(state = initialState, action) {
         data: action.data,
         isLoading: false,
       }
-    case FILTER:
-      return {
-        ...state,
-        data: action.data,
-      }
+    // case FILTER:
+    //   return {
+    //     ...state,
+    //     data: action.data,
+    //   }
     case SORT:
       return {
         ...state,

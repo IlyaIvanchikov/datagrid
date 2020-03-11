@@ -1,13 +1,15 @@
 import React from 'react'
-import { Form } from 'react-bootstrap'
+import { Form, Col } from 'react-bootstrap'
+import BooleanSearch from './BooleanSearch/BooleanSearch'
 import './TableSearch.css'
 import { connect } from 'react-redux'
 import { changeHandler } from '../../store/actions/filterAll'
 
 const TableSearch = props => (
   <Form>
-    <Form.Group controlId="formBasicEmail">
-      <Form.Label className="mt-3">Сортировка</Form.Label>
+    <Form.Row>
+      <Form.Group as={Col} sm={6} controlId="formBasicEmail">
+      <Form.Label className="mt-3">Фильтрация</Form.Label>
       <Form.Control
         onChange={e => props.changeHandler(e.target.value)}
         value={props.search}
@@ -18,6 +20,8 @@ const TableSearch = props => (
         Введите что-нибудь для поиска.
       </Form.Text>
     </Form.Group>
+    <BooleanSearch />
+    </Form.Row>
   </Form>
 )
 
