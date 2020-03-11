@@ -1,40 +1,40 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Form, Col } from 'react-bootstrap'
 import './BooleanSearch.css'
+import { toggleSearch } from '../../../store/actions/filterBoolean'
 import { connect } from 'react-redux'
-
-const BooleanSearch = props => (
-    <Form.Group as={Col} sm={6}>
-      <Form.Label  className="mt-3" as="legend">
-        Фильтр по активности
-      </Form.Label>
-        <Form.Check
-          type="radio"
-          label="Все"
-          name="formHorizontalRadios"
-          id="formHorizontalRadios1"
-        />
-        <Form.Check
-          type="radio"
-          label="Активные"
-          name="formHorizontalRadios"
-          id="formHorizontalRadios2"
-        />
-        <Form.Check
-          type="radio"
-          label="Неактивные"
-          name="formHorizontalRadios"
-          id="formHorizontalRadios3"
-        />
-    </Form.Group>
-)
+class BooleanSearch extends Component {
+  render() {
+    return (
+      <Form.Group as={Col} sm={6}>
+        <Form.Label className="mt-3" as="legend">
+          Фильтр по активности
+        </Form.Label>
+        {this.props.check.map((item, i) => (
+          <Form.Check
+            type="switch"
+            id={`custom-switch-${i}`}
+            label={item.label}
+            checked={item.checked}
+            key={item.id}
+            onChange={() => this.props.toggleSearch(item.id)}
+          />
+        ))}
+      </Form.Group>
+    )
+  }
+}
 
 function mapStateToProps(state) {
-  return {}
+  return {
+    check: state.check.check,
+  }
 }
 
 function mapDispatchToProps(dispatch) {
-  return {}
+  return {
+    toggleSearch: id => dispatch(toggleSearch(id)),
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BooleanSearch)

@@ -59,14 +59,33 @@ export function filterData() {
   return (dispatch, getState) => {
     const stateSort = getState().sort
     const stateSearch = getState().search
-    if (!stateSearch.search) {
-      return stateSort.data
-    }
-
+    const stateCheck = getState().check
+    let newDataBoolean = stateCheck.check.find(item => {
+      return item.checked === true
+    })
+    // if (!stateSearch.search && (!newDataBoolean || newDataBoolean.id === 1)) {
+    //   return stateSort.data
+    // }
     let newData = stateSort.data.filter(item => {
-      return item['name']
-        .toLowerCase()
-        .includes(stateSearch.search.toLowerCase())
+      if (newDataBoolean.id === 2) {
+        return (
+          item['isActive'] === true &&
+          item['name'].toLowerCase().includes(stateSearch.search.toLowerCase())
+        )
+      } else if (newDataBoolean.id === 3) {
+        return (
+          item['isActive'] === false &&
+          item['name'].toLowerCase().includes(stateSearch.search.toLowerCase())
+        )
+      }
+      else if (newDataBoolean.id === 1) {
+        return (
+          item['name'].toLowerCase().includes(stateSearch.search.toLowerCase())
+        )
+      }
+      // return item['name']
+      //   .toLowerCase()
+      //   .includes(stateSearch.search.toLowerCase())
     })
 
     if (!newData.length) {

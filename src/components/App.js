@@ -45,6 +45,7 @@ function mapStateToProps(state) {
     isLoading: state.sort.isLoading,
     sortField: state.sort.sortField,
     search: state.search.search,
+    check: state.check.check
   }
 }
 
