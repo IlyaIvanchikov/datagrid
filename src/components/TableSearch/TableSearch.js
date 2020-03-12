@@ -1,6 +1,7 @@
 import React from 'react'
 import { Form, Col } from 'react-bootstrap'
 import BooleanSearch from './BooleanSearch/BooleanSearch'
+import EnumSearch from './EnumSearch/EnumSearch'
 import './TableSearch.css'
 import { connect } from 'react-redux'
 import { changeHandler } from '../../store/actions/filterAll'
@@ -8,7 +9,7 @@ import { changeHandler } from '../../store/actions/filterAll'
 const TableSearch = props => (
   <Form>
     <Form.Row>
-      <Form.Group as={Col} sm={6} controlId="formBasicEmail">
+      <Form.Group as={Col} sm={4} controlId="formBasicEmail">
       <Form.Label className="mt-3">Фильтрация</Form.Label>
       <Form.Control
         onChange={e => props.changeHandler(e.target.value)}
@@ -21,6 +22,7 @@ const TableSearch = props => (
       </Form.Text>
     </Form.Group>
     <BooleanSearch />
+    <EnumSearch />
     </Form.Row>
   </Form>
 )

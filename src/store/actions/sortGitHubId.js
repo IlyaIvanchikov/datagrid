@@ -1,4 +1,4 @@
-import { SORT, DATA, FILTER } from './actionTypes'
+import { SORT, DATA, DISPLAY_DATA } from './actionTypes'
 import faker from 'faker'
 import _ from 'lodash'
 
@@ -18,13 +18,12 @@ export function SetData(data) {
   }
 }
 
-// export function SetFilter(data) {
-//   return {
-//     type: FILTER,
-//     data,
-//   }
-// }
-
+export function SetDisplayData(displayData) {
+  return {
+    type: DISPLAY_DATA,
+    displayData,
+  }
+}
 export function dataInfo() {
   return dispatch => {
     faker.seed(74)
@@ -35,13 +34,14 @@ export function dataInfo() {
         name: faker.name.findName(),
         githubId: faker.internet.email(),
         totalScore: 0,
-        locationName: faker.address.city(),
+        locationName: faker.random.arrayElement(['minsk', 'zhlobin', 'gomel']),
         taskResults: [Math.floor(Math.random() * 10)],
         isActive: faker.random.boolean(),
       }
     }
     const dataInfo = [...new Array(1000)].map((_, idx) => makeFake(idx))
     dispatch(SetData(dataInfo))
+    dispatch(SetDisplayData(dataInfo))
   }
 }
 
@@ -60,15 +60,18 @@ export function filterData() {
     const stateSort = getState().sort
     const stateSearch = getState().search
     const stateCheck = getState().check
+    const stateEnum = getState().enum
     let newDataBoolean = stateCheck.check.find(item => {
       return item.checked === true
     })
-    // if (!stateSearch.search && (!newDataBoolean || newDataBoolean.id === 1)) {
-    //   return stateSort.data
-    // }
+    // let newDataEnum = stateEnum.selectedValues.filter(item => {
+    //   return item
+    // })
+    console.log(stateEnum.selectedValues)
     let newData = stateSort.data.filter(item => {
       if (newDataBoolean.id === 2) {
         return (
+         // item['locationName'] === newDataEnum[0].name &&
           item['isActive'] === true &&
           item['name'].toLowerCase().includes(stateSearch.search.toLowerCase())
         )
@@ -77,15 +80,14 @@ export function filterData() {
           item['isActive'] === false &&
           item['name'].toLowerCase().includes(stateSearch.search.toLowerCase())
         )
-      }
-      else if (newDataBoolean.id === 1) {
+      } else if (newDataBoolean.id === 1) {
         return (
-          item['name'].toLowerCase().includes(stateSearch.search.toLowerCase())
-        )
+          //item['locationName'] === newDataEnum[0].name &&
+          item['name']
+          .toLowerCase()
+          .includes(stateSearch.search.toLowerCase()))
       }
-      // return item['name']
-      //   .toLowerCase()
-      //   .includes(stateSearch.search.toLowerCase())
+      return item
     })
 
     if (!newData.length) {

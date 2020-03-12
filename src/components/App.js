@@ -6,6 +6,7 @@ import {
   filterData,
   dataInfo,
 } from '../store/actions/sortGitHubId'
+import { selectedValues } from '../store/actions/filterEnum'
 import TableInfo from './Table/Table'
 import TableSearch from './TableSearch/TableSearch'
 
@@ -42,10 +43,12 @@ function mapStateToProps(state) {
   return {
     sort: state.sort.sortGitHubId,
     data: state.sort.data,
+    displayData: state.sort.displayData,
     isLoading: state.sort.isLoading,
     sortField: state.sort.sortField,
     search: state.search.search,
-    check: state.check.check
+    check: state.check.check,
+    selectedValues: state.enum.selectedValues
   }
 }
 
@@ -54,6 +57,7 @@ function mapDispatchToProps(dispatch) {
     dataInfo: () => dispatch(dataInfo()),
     sortGitHubId: sortField => dispatch(sortGitHubId(sortField)),
     filterData: () => dispatch(filterData()),
+    //selectedValues: (item) => dispatch(selectedValues(item)),
   }
 }
 

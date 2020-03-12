@@ -6,6 +6,3 @@ export function changeHandler(search) {
     search,
   }
 }
-
-
-

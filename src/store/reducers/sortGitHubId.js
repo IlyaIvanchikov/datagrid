@@ -1,4 +1,4 @@
-import { SORT, DATA, FILTER } from '../actions/actionTypes'
+import { SORT, DATA } from '../actions/actionTypes'
 
 const initialState = {
   sortGitHubId: 'asc',
@@ -15,11 +15,6 @@ export default function sortGitHubId(state = initialState, action) {
         data: action.data,
         isLoading: false,
       }
-    // case FILTER:
-    //   return {
-    //     ...state,
-    //     data: action.data,
-    //   }
     case SORT:
       return {
         ...state,
@@ -27,7 +22,6 @@ export default function sortGitHubId(state = initialState, action) {
         data: action.data,
         sortField: action.sortField,
       }
-
     default:
       return state
   }
