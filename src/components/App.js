@@ -6,7 +6,6 @@ import {
   filterData,
   dataInfo,
 } from '../store/actions/sortGitHubId'
-import { selectedValues } from '../store/actions/filterEnum'
 import TableInfo from './Table/Table'
 import TableSearch from './TableSearch/TableSearch'
 
@@ -18,7 +17,7 @@ class App extends Component {
   }
 
   render() {
-    const displayData = this.props.filterData();
+    const displayData = this.props.filterData()
     return (
       <div className="container">
         {this.props.isLoading ? (
@@ -43,21 +42,21 @@ function mapStateToProps(state) {
   return {
     sort: state.sort.sortGitHubId,
     data: state.sort.data,
+    sortField: state.sort.sortField,
     displayData: state.sort.displayData,
     isLoading: state.sort.isLoading,
-    sortField: state.sort.sortField,
+    typeField: state.sort.typeField,
     search: state.search.search,
     check: state.check.check,
-    selectedValues: state.enum.selectedValues
+    selectedValues: state.enum.selectedValues,
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     dataInfo: () => dispatch(dataInfo()),
-    sortGitHubId: sortField => dispatch(sortGitHubId(sortField)),
+    sortGitHubId: (e, sortField) => dispatch(sortGitHubId(e, sortField)),
     filterData: () => dispatch(filterData()),
-    //selectedValues: (item) => dispatch(selectedValues(item)),
   }
 }
 

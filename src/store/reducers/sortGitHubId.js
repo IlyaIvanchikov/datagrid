@@ -1,10 +1,11 @@
-import { SORT, DATA } from '../actions/actionTypes'
+import { SORT, DATA, FIELD } from '../actions/actionTypes'
 
 const initialState = {
   sortGitHubId: 'asc',
   data: [],
   isLoading: true,
   sortField: null,
+  typeField: []
 }
 
 export default function sortGitHubId(state = initialState, action) {
@@ -22,6 +23,11 @@ export default function sortGitHubId(state = initialState, action) {
         data: action.data,
         sortField: action.sortField,
       }
+      case FIELD:
+        return {
+          ...state,
+          typeField: state.typeField.concat(action.typeField)
+        }
     default:
       return state
   }

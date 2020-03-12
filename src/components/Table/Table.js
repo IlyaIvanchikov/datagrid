@@ -7,8 +7,14 @@ const TableInfo = props => (
     <thead>
       <tr>
         <th>#</th>
-        <th>Name</th>
-        <th onClick={() => props.sortGitHubId('githubId')}>GithubId {props.sortField === 'githubId' ? <small>{props.sort}</small> : null}</th>
+        <th onClick={e => props.sortGitHubId(e, 'name')}>
+          Name{' '}
+          {props.sortField === 'name' ? <small>{props.sort}</small> : null}
+        </th>
+        <th onClick={e => props.sortGitHubId(e, 'githubId')}>
+          GithubId{' '}
+          {props.sortField === 'githubId' ? <small>{props.sort}</small> : null}
+        </th>
         <th>TotalScore</th>
         <th>LocationName</th>
         <th>TaskResults</th>

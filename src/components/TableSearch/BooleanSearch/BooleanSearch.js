@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Form, Col } from 'react-bootstrap'
 import './BooleanSearch.css'
 import { toggleSearch } from '../../../store/actions/filterBoolean'
-//import { filterData } from '../../../store/actions/sortGitHubId'
 import { connect } from 'react-redux'
 class BooleanSearch extends Component {
   render() {
@@ -17,7 +16,6 @@ class BooleanSearch extends Component {
             id={`custom-switch-${i}`}
             label={item.label}
             checked={item.checked}
-            //onClick={this.props.filterData()}
             key={item.id}
             onChange={() => this.props.toggleSearch(item.id)}
           />
@@ -36,7 +34,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     toggleSearch: id => dispatch(toggleSearch(id)),
-   // filterData: () => dispatch(filterData()),
   }
 }
 

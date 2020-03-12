@@ -1,4 +1,4 @@
-import { SORT, DATA, DISPLAY_DATA } from './actionTypes'
+import { SORT, DATA, FIELD } from './actionTypes'
 import faker from 'faker'
 import _ from 'lodash'
 
@@ -18,12 +18,13 @@ export function SetData(data) {
   }
 }
 
-export function SetDisplayData(displayData) {
+export function SetField(typeField) {
   return {
-    type: DISPLAY_DATA,
-    displayData,
+    type: FIELD,
+    typeField,
   }
 }
+
 export function dataInfo() {
   return dispatch => {
     faker.seed(74)
@@ -41,18 +42,26 @@ export function dataInfo() {
     }
     const dataInfo = [...new Array(1000)].map((_, idx) => makeFake(idx))
     dispatch(SetData(dataInfo))
-    dispatch(SetDisplayData(dataInfo))
   }
 }
 
-export function sortGitHubId(sortField) {
+export function sortGitHubId(e, sortField) {
   return (dispatch, getState) => {
     const state = getState().sort
-    const cloneData = state.data.concat()
-    const sortGitHubId = state.sortGitHubId
-    const sortType = sortGitHubId === 'asc' ? 'desc' : 'asc'
-    const orderedData = _.orderBy(cloneData, sortField, sortType)
-    dispatch(SetSortType(sortType, orderedData, sortField))
+    if (!e.shiftKey) {
+      const cloneData = state.data.concat()
+      const sortGitHubId = state.sortGitHubId
+      const sortType = sortGitHubId === 'asc' ? 'desc' : 'asc'
+      const orderedData = _.orderBy(cloneData, sortField, sortType)
+      dispatch(SetSortType(sortType, orderedData, sortField))
+    }
+    else if (e.shiftKey) {
+      console.log(sortField)
+      //let field = state.typeField.push(sortField)
+      //console.log(field)
+      dispatch(SetField(sortField))
+    }
+
   }
 }
 export function filterData() {
@@ -64,14 +73,11 @@ export function filterData() {
     let newDataBoolean = stateCheck.check.find(item => {
       return item.checked === true
     })
-    // let newDataEnum = stateEnum.selectedValues.filter(item => {
-    //   return item
-    // })
-    console.log(stateEnum.selectedValues)
+
+    let enumLength = stateEnum.selectedValues.length
     let newData = stateSort.data.filter(item => {
       if (newDataBoolean.id === 2) {
         return (
-         // item['locationName'] === newDataEnum[0].name &&
           item['isActive'] === true &&
           item['name'].toLowerCase().includes(stateSearch.search.toLowerCase())
         )
@@ -81,18 +87,32 @@ export function filterData() {
           item['name'].toLowerCase().includes(stateSearch.search.toLowerCase())
         )
       } else if (newDataBoolean.id === 1) {
-        return (
-          //item['locationName'] === newDataEnum[0].name &&
-          item['name']
+        return item['name']
           .toLowerCase()
-          .includes(stateSearch.search.toLowerCase()))
+          .includes(stateSearch.search.toLowerCase())
       }
       return item
     })
-
-    if (!newData.length) {
-      newData = stateSort.data
+    let newDataEnum = newData.filter(item => {
+      if (enumLength === 1) {
+        return item['locationName'] === stateEnum.selectedValues[0].name
+      } else if (enumLength === 2) {
+        return (
+          item['locationName'] === stateEnum.selectedValues[0].name ||
+          item['locationName'] === stateEnum.selectedValues[1].name
+        )
+      } else if (enumLength === 3) {
+        return (
+          item['locationName'] === stateEnum.selectedValues[0].name ||
+          item['locationName'] === stateEnum.selectedValues[1].name ||
+          item['locationName'] === stateEnum.selectedValues[2].name
+        )
+      }
+      return item
+    })
+    if (!newDataEnum.length) {
+      newDataEnum = stateSort.data
     }
-    return newData
+    return newDataEnum
   }
 }

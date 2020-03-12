@@ -13,10 +13,3 @@ export function selectedValues(item) {
     dispatch(SetSelectedValues(cloneData))
     }
 }
-
-// export function selectedValues(selectedValues) {
-//   return {
-//     type: ENUM,
-//     selectedValues
-//   }
-// }

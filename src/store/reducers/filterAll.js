@@ -10,7 +10,6 @@ export default function searchReducer(state = initialState, action) {
       return {
         ...state,
         search: action.search,
-
       }
 
     default:

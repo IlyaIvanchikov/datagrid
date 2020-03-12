@@ -7,8 +7,8 @@ import { Multiselect } from 'multiselect-react-dropdown'
 
 class EnumSearch extends Component {
   constructor(props) {
-    super(props);
-      this.multiselectRef = React.createRef();
+    super(props)
+    this.multiselectRef = React.createRef()
   }
   render() {
     return (
@@ -21,16 +21,22 @@ class EnumSearch extends Component {
           sm={3}
           ref={this.multiselectRef}
           options={this.props.enum}
-          onSelect={() => {this.props.selectedValues(this.multiselectRef.current.getSelectedItems())}}
-          onRemove={() => {this.props.selectedValues(this.multiselectRef.current.getSelectedItems())}}
+          onSelect={() => {
+            this.props.selectedValues(
+              this.multiselectRef.current.getSelectedItems()
+            )
+          }}
+          onRemove={() => {
+            this.props.selectedValues(
+              this.multiselectRef.current.getSelectedItems()
+            )
+          }}
           displayValue="name"
         />
-        
       </Form.Group>
     )
   }
 }
-
 
 function mapStateToProps(state) {
   return {
@@ -41,7 +47,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    selectedValues: (item) => dispatch(selectedValues(item)),
+    selectedValues: item => dispatch(selectedValues(item)),
   }
 }
 

@@ -16,7 +16,7 @@ const initialState = {
     },
   ],
   selectedValues: [
-        {
+    {
       id: 1,
       name: 'minsk',
     },
@@ -28,16 +28,16 @@ const initialState = {
       id: 3,
       name: 'gomel',
     },
-  ]
+  ],
 }
 
 export default function searchEnumReducer(state = initialState, action) {
   switch (action.type) {
-     case ENUM:
-     const test = action.selectedValues
+    case ENUM:
+      const test = action.selectedValues
       return {
-      ...state,
-      selectedValues: test
+        ...state,
+        selectedValues: test,
       }
     default:
       return state

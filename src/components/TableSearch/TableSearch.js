@@ -10,19 +10,19 @@ const TableSearch = props => (
   <Form>
     <Form.Row>
       <Form.Group as={Col} sm={4} controlId="formBasicEmail">
-      <Form.Label className="mt-3">Фильтрация</Form.Label>
-      <Form.Control
-        onChange={e => props.changeHandler(e.target.value)}
-        value={props.search}
-        type="email"
-        placeholder="Введите текст"
-      />
-      <Form.Text className="text-muted">
-        Введите что-нибудь для поиска.
-      </Form.Text>
-    </Form.Group>
-    <BooleanSearch />
-    <EnumSearch />
+        <Form.Label className="mt-3">Фильтрация</Form.Label>
+        <Form.Control
+          onChange={e => props.changeHandler(e.target.value)}
+          value={props.search}
+          type="email"
+          placeholder="Введите текст"
+        />
+        <Form.Text className="text-muted">
+          Введите что-нибудь для поиска.
+        </Form.Text>
+      </Form.Group>
+      <BooleanSearch />
+      <EnumSearch />
     </Form.Row>
   </Form>
 )

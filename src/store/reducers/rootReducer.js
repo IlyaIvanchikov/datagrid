@@ -8,5 +8,5 @@ export default combineReducers({
   sort: sortGitHubId,
   search: searchReducer,
   check: searchBooleanReducer,
-  enum: searchEnumReducer
+  enum: searchEnumReducer,
 })
