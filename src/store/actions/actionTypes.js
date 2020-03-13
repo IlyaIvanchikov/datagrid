@@ -1,6 +1,8 @@
 export const SORT = 'SORT'
 export const DATA = 'DATA'
 export const SEARCH = 'SEARCH'
+export const TYPE_SORT = 'TYPE_SORT'
 export const ENUM = 'ENUM'
 export const BOOLEAN = 'BOOLEAN'
 export const FIELD = 'FIELD'
+export const FIELD_NULL = 'FIELD_NULL'

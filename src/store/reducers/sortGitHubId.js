@@ -1,11 +1,12 @@
-import { SORT, DATA, FIELD } from '../actions/actionTypes'
+import { SORT, DATA, FIELD, FIELD_NULL, TYPE_SORT } from '../actions/actionTypes'
 
 const initialState = {
   sortGitHubId: 'asc',
   data: [],
   isLoading: true,
   sortField: null,
-  typeField: []
+  typeField: [],
+  typeSort: [],
 }
 
 export default function sortGitHubId(state = initialState, action) {
@@ -27,7 +28,18 @@ export default function sortGitHubId(state = initialState, action) {
         return {
           ...state,
           typeField: state.typeField.concat(action.typeField)
-        }
+      }
+    case FIELD_NULL:
+      const fieldNull = []
+        return {
+          ...state,
+          typeField: fieldNull.slice()
+      }
+      case TYPE_SORT:
+          return {
+            ...state,
+            typeSort: state.typeSort.concat(action.typeSort)
+          }
     default:
       return state
   }

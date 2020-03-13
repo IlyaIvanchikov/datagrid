@@ -16,7 +16,7 @@ const TableInfo = props => (
           {props.sortField === 'githubId' ? <small>{props.sort}</small> : null}
         </th>
         <th>TotalScore</th>
-        <th>LocationName</th>
+        <th onClick={e => props.sortGitHubId(e, 'locationName')}>LocationName{' '} {props.sortField === 'locationName' ? <small>{props.sort}</small> : null}</th>
         <th>TaskResults</th>
         <th>IsActive</th>
       </tr>

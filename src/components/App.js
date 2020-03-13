@@ -46,6 +46,7 @@ function mapStateToProps(state) {
     displayData: state.sort.displayData,
     isLoading: state.sort.isLoading,
     typeField: state.sort.typeField,
+    typeSort: state.sort.typeSort,
     search: state.search.search,
     check: state.check.check,
     selectedValues: state.enum.selectedValues,
