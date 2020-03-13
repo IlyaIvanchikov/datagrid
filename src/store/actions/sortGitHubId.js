@@ -1,4 +1,4 @@
-import { SORT, DATA, FIELD, FIELD_NULL, TYPE_SORT } from './actionTypes'
+import { SORT, DATA, FIELD, FIELD_NULL, TYPE_SORT, CHANGE_SORT } from './actionTypes'
 import faker from 'faker'
 import _ from 'lodash'
 
@@ -37,6 +37,13 @@ export function SetFieldNull() {
   }
 }
 
+export function SetChangeSort(changeSort) {
+  return {
+    type: CHANGE_SORT,
+    changeSort
+  }
+}
+
 export function dataInfo() {
   return dispatch => {
     faker.seed(74)
@@ -58,31 +65,41 @@ export function dataInfo() {
 }
 
 export function sortGitHubId(e, sortField) {
+
   return (dispatch, getState) => {
-    const state = getState().sort
-    const cloneData = state.data.concat()
-    const sortGitHubId = state.sortGitHubId
-    const sortType = sortGitHubId === 'asc' ? 'desc' : 'asc'
     if (!e.shiftKey) {
+      const state = getState().sort
+      const cloneData = state.data.concat()
+      const sortGitHubId = state.sortGitHubId
+      const sortType = sortGitHubId === 'asc' ? 'desc' : 'asc'
       const orderedData = _.orderBy(cloneData, sortField, sortType)
       dispatch(SetSortType(sortType, orderedData, sortField))
       dispatch(SetFieldNull())
     }
     else if (e.shiftKey) {
+       const state = getState().sort
+       const cloneData = state.data.concat()
+      // const sortGitHubId = state.sortGitHubId
+       const sortType = sortGitHubId === 'asc' ? 'desc' : 'asc'
       let newTypeField = state.typeField.find(item => {
         return item === sortField
       })
       if (!newTypeField) {
-        console.log(sortType)
         dispatch(SetField(sortField))
         dispatch(SetTypeSort(sortType))
+        const stateAllNew = getState().sort
+        const sortGitHubIdAllNew = stateAllNew.sortGitHubId
+        const typeFieldNew = stateAllNew.typeField
+        const sortArrNew = stateAllNew.typeSort
+        const sortTypeNew = sortGitHubIdAllNew === 'asc' ? 'desc' : 'asc'
+        const orderedData = _.orderBy(cloneData, typeFieldNew, sortArrNew)
+        dispatch(SetSortType(sortTypeNew, orderedData, typeFieldNew))
       }
       const stateAll = getState().sort
-      const sortGitHubId = stateAll.sortGitHubId
+      const sortGitHubIdAll = stateAll.sortGitHubId
       const typeField = stateAll.typeField
       const sortArr = stateAll.typeSort
-      console.log(sortArr)
-      const sortTypeNew = sortGitHubId === 'asc' ? 'desc' : 'asc'
+      const sortTypeNew = sortGitHubIdAll === 'asc' ? 'desc' : 'asc'
       const orderedData = _.orderBy(cloneData, typeField, sortArr)
       dispatch(SetSortType(sortTypeNew, orderedData, typeField))
     }

@@ -1,4 +1,4 @@
-import { SORT, DATA, FIELD, FIELD_NULL, TYPE_SORT } from '../actions/actionTypes'
+import { SORT, DATA, FIELD, FIELD_NULL, TYPE_SORT, CHANGE_SORT } from '../actions/actionTypes'
 
 const initialState = {
   sortGitHubId: 'asc',
@@ -40,6 +40,12 @@ export default function sortGitHubId(state = initialState, action) {
             ...state,
             typeSort: state.typeSort.concat(action.typeSort)
           }
+    case CHANGE_SORT:
+      const legSort = state.typeSort.lenght
+            return {
+              ...state,
+              typeSort: state.action.changeSort
+            }
     default:
       return state
   }
