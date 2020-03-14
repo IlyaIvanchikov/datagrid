@@ -1,4 +1,14 @@
-import { SORT, DATA, FIELD, FIELD_NULL, TYPE_SORT, CHANGE_SORT } from './actionTypes'
+import {
+  SORT,
+  DATA,
+  FIELD,
+  FIELD_NULL,
+  TYPE_SORT,
+  CHANGE_SORT,
+  CLEAR,
+  SELECT_ROW,
+  DELETE_ROW
+} from './actionTypes'
 import faker from 'faker'
 import _ from 'lodash'
 
@@ -37,10 +47,28 @@ export function SetFieldNull() {
   }
 }
 
+export function SetSortNull() {
+  return {
+    type: CLEAR,
+  }
+}
+
+export function SetDeleteRow(newArr) {
+  return {
+    type: DELETE_ROW,
+    newArr
+  }
+}
+export function SetSelectRow(selectRow) {
+  return {
+    type: SELECT_ROW,
+    selectRow
+  }
+}
 export function SetChangeSort(changeSort) {
   return {
     type: CHANGE_SORT,
-    changeSort
+    changeSort,
   }
 }
 
@@ -64,8 +92,26 @@ export function dataInfo() {
   }
 }
 
-export function sortGitHubId(e, sortField) {
+export function selectRow(e, index) {
+  return (dispatch, getState) => {
+   dispatch(SetSelectRow(index))
+  }
+}
 
+export function DeleteRow(e) {
+  return (dispatch, getState) => {
+    const state = getState().sort
+      if (e.key === 'd' && state.selectRow != null && e.repeat != true) {
+        const newArrFirst = state.data.slice(0, state.selectRow);
+        const newArrTwo = state.data.slice(state.selectRow + 1);
+        const result = newArrFirst.concat(newArrTwo)
+        dispatch(SetSelectRow(null))
+        dispatch(SetDeleteRow(result))
+      }
+  }
+}
+
+export function sortGitHubId(e, sortField) {
   return (dispatch, getState) => {
     if (!e.shiftKey) {
       const state = getState().sort
@@ -75,12 +121,12 @@ export function sortGitHubId(e, sortField) {
       const orderedData = _.orderBy(cloneData, sortField, sortType)
       dispatch(SetSortType(sortType, orderedData, sortField))
       dispatch(SetFieldNull())
-    }
-    else if (e.shiftKey) {
-       const state = getState().sort
-       const cloneData = state.data.concat()
-      // const sortGitHubId = state.sortGitHubId
-       const sortType = sortGitHubId === 'asc' ? 'desc' : 'asc'
+      dispatch(SetSortNull())
+    } else if (e.shiftKey) {
+      const state = getState().sort
+      const cloneData = state.data.concat()
+      const sortGitHubId = state.sortGitHubId
+      const sortType = sortGitHubId === 'asc' ? 'desc' : 'asc'
       let newTypeField = state.typeField.find(item => {
         return item === sortField
       })
@@ -88,20 +134,20 @@ export function sortGitHubId(e, sortField) {
         dispatch(SetField(sortField))
         dispatch(SetTypeSort(sortType))
         const stateAllNew = getState().sort
-        const sortGitHubIdAllNew = stateAllNew.sortGitHubId
         const typeFieldNew = stateAllNew.typeField
         const sortArrNew = stateAllNew.typeSort
-        const sortTypeNew = sortGitHubIdAllNew === 'asc' ? 'desc' : 'asc'
         const orderedData = _.orderBy(cloneData, typeFieldNew, sortArrNew)
-        dispatch(SetSortType(sortTypeNew, orderedData, typeFieldNew))
+        dispatch(SetSortType(sortType, orderedData, typeFieldNew))
+        return
       }
-      const stateAll = getState().sort
-      const sortGitHubIdAll = stateAll.sortGitHubId
-      const typeField = stateAll.typeField
-      const sortArr = stateAll.typeSort
-      const sortTypeNew = sortGitHubIdAll === 'asc' ? 'desc' : 'asc'
-      const orderedData = _.orderBy(cloneData, typeField, sortArr)
-      dispatch(SetSortType(sortTypeNew, orderedData, typeField))
+      dispatch(SetChangeSort(sortType))
+      const stateResult = getState().sort
+      const orderedData = _.orderBy(
+        stateResult.data,
+        stateResult.typeField,
+        stateResult.typeSort
+      )
+      dispatch(SetSortType(sortType, orderedData, stateResult.typeField))
     }
   }
 }
