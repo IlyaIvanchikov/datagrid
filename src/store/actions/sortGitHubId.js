@@ -7,7 +7,10 @@ import {
   CHANGE_SORT,
   CLEAR,
   SELECT_ROW,
-  DELETE_ROW
+  DELETE_ROW,
+  CHANGE_ARR_ROW,
+  CLEAR_ARR_ROW,
+  CLEAR_ROW,
 } from './actionTypes'
 import faker from 'faker'
 import _ from 'lodash'
@@ -56,19 +59,40 @@ export function SetSortNull() {
 export function SetDeleteRow(newArr) {
   return {
     type: DELETE_ROW,
-    newArr
+    newArr,
   }
 }
+
 export function SetSelectRow(selectRow) {
   return {
     type: SELECT_ROW,
-    selectRow
+    selectRow,
   }
 }
+
 export function SetChangeSort(changeSort) {
   return {
     type: CHANGE_SORT,
     changeSort,
+  }
+}
+
+export function SetSelectArrRow(selectRow) {
+  return {
+    type: CHANGE_ARR_ROW,
+    selectRow,
+  }
+}
+
+export function SetClearArrRow() {
+  return {
+    type: CLEAR_ARR_ROW,
+  }
+}
+
+export function SetClearRow() {
+  return {
+    type: CLEAR_ROW,
   }
 }
 
@@ -92,25 +116,56 @@ export function dataInfo() {
   }
 }
 
-export function selectRow(e, index) {
+export function selectRow(e, item) {
   return (dispatch, getState) => {
-   dispatch(SetSelectRow(index))
+    if (!e.ctrlKey) {
+      dispatch(SetClearArrRow())
+      dispatch(SetSelectRow(item.id))
+    } else if (e.ctrlKey) {
+      dispatch(SetClearRow())
+      dispatch(SetSelectArrRow(item.id))
+    }
   }
 }
 
 export function DeleteRow(e) {
   return (dispatch, getState) => {
     const state = getState().sort
-      if (e.key === 'd' && state.selectRow != null && e.repeat != true) {
-        const newArrFirst = state.data.slice(0, state.selectRow);
-        const newArrTwo = state.data.slice(state.selectRow + 1);
-        const result = newArrFirst.concat(newArrTwo)
-        dispatch(SetSelectRow(null))
-        dispatch(SetDeleteRow(result))
-      }
+    if (e.key === 'd' && state.selectRow !== null && e.repeat !== true) {
+      state.data.map((item, index) => {
+        if (Number(item.id) === state.selectRow) {
+          const newArrFirst = state.data.slice(0, index)
+          const newArrTwo = state.data.slice(index + 1)
+          const result = newArrFirst.concat(newArrTwo)
+          dispatch(SetSelectRow(null))
+          dispatch(SetDeleteRow(result))
+        }
+        return item
+      })
+    } else if (e.key === 'd' && e.repeat !== true && state.selectRow === null) {
+      const state = getState().sort
+      const arrOne = state.data
+      let arrTwo = state.data
+      let a = 0
+      arrOne.map((itemArr, index) => {
+        state.selectArrRow.map(item => {
+          if (Number(itemArr.id) === item) {
+            let count = index + a
+            let newArrFirst = arrTwo.slice(0, count)
+            let newArrTwo = arrTwo.slice(count + 1)
+            const result = newArrFirst.concat(newArrTwo)
+            arrTwo = result.slice()
+            a = a - 1
+            return arrTwo
+          }
+          return item
+        })
+        return itemArr
+      })
+      dispatch(SetDeleteRow(arrTwo))
+    }
   }
 }
-
 export function sortGitHubId(e, sortField) {
   return (dispatch, getState) => {
     if (!e.shiftKey) {

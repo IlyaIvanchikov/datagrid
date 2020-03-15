@@ -7,7 +7,10 @@ import {
   CHANGE_SORT,
   CLEAR,
   SELECT_ROW,
-  DELETE_ROW
+  DELETE_ROW,
+  CHANGE_ARR_ROW,
+  CLEAR_ARR_ROW,
+  CLEAR_ROW,
 } from '../actions/actionTypes'
 
 const initialState = {
@@ -18,6 +21,7 @@ const initialState = {
   typeField: [],
   typeSort: [],
   selectRow: null,
+  selectArrRow: [],
 }
 
 export default function sortGitHubId(state = initialState, action) {
@@ -69,11 +73,27 @@ export default function sortGitHubId(state = initialState, action) {
         ...state,
         selectRow: action.selectRow,
       }
-      case DELETE_ROW:
-        return {
-          ...state,
-          data: action.newArr
-        }
+    case DELETE_ROW:
+      return {
+        ...state,
+        data: action.newArr,
+      }
+    case CHANGE_ARR_ROW:
+      return {
+        ...state,
+        selectArrRow: state.selectArrRow.concat(action.selectRow),
+      }
+    case CLEAR_ARR_ROW:
+      const clearArrRow = []
+      return {
+        ...state,
+        selectArrRow: clearArrRow.slice(),
+      }
+    case CLEAR_ROW:
+      return {
+        ...state,
+        selectRow: null,
+      }
     default:
       return state
   }

@@ -3,12 +3,11 @@ import { Table } from 'react-bootstrap'
 import './Table.css'
 class TableInfo extends Component {
   render() {
-    //this.props.DeleteRow(e)
     const tableList = this.props.data.map((item, index) => (
       <tr
         key={item.id}
-        onClick={e => this.props.selectRow(e, index)}
-        style={{ backgroundColor:'grey' }}
+        onClick={e => this.props.selectRow(e, item)}
+        style={{ backgroundColor: 'grey' }}
       >
         <td>{item.rank}</td>
         <td className="table-string">{item.name}</td>
@@ -23,11 +22,20 @@ class TableInfo extends Component {
         <td>{String(item.isActive)}</td>
       </tr>
     ))
+    tableList.map((tr, index) => {
+      if (Number(tr.key) === this.props.selectTR) {
+        return (tr.props.style.backgroundColor = '#343a40')
+      }
+      return tr
+    })
 
     tableList.map((tr, index) => {
-      if (index === this.props.selectTR) {
-         return (tr.props.style.backgroundColor = '#343a40')
-      }
+      this.props.selectArrRow.map(item => {
+        if (Number(tr.key) === item) {
+          return (tr.props.style.backgroundColor = '#343a40')
+        }
+        return item
+      })
       return tr
     })
     return (
