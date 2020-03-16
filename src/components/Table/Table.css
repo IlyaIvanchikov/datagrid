@@ -1,4 +1,4 @@
-.table-a {
+ .table-a {
     color: #ceadad;
     text-decoration: none;
     background-color: transparent;
@@ -7,15 +7,34 @@
     transition: color .3s;
 }
 
-.table-string {
+/* .table-string {
     text-overflow: ellipsis;
     width: 15%;
     overflow: hidden;
     white-space: nowrap;
     max-width: 0;
     text-overflow: ellipsis;
+} */
+
+/* .table, tbody {
+    display: block;
+}  */
+
+table,
+thead,
+tbody {
+  display: block;
+  width: 100vw;
 }
 
-.table {
-    width: 100%;
+tr {
+  display: flex;
+}
+
+td {
+  flex: 1 1 auto;
+}
+
+.List {
+  border: 1px solid #d9dddd;
 }
