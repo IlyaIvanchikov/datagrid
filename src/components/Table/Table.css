@@ -16,6 +16,42 @@
     text-overflow: ellipsis;
 }
 
-.table {
-    width: 100%;
+.table{
+    border-collapse: collapse;
 }
+td,
+th {
+  padding: 0.5em;
+}
+thead th {
+    background: #000;
+    color: #FFF;
+  }
+  
+  tbody th {
+    background: #000;
+    border-right: 1px solid #CCC;
+  }
+
+.scroller {
+    overflow: scroll;
+    max-width: 1150px;
+    max-height: 590px;
+} 
+
+thead th {
+    position: -webkit-sticky; /* for Safari */
+    position: sticky;
+    top: 0;
+  }
+  
+  tbody th {
+    position: -webkit-sticky; /* for Safari */
+    position: sticky;
+    left: 0;
+  }
+
+  thead th:first-child {
+    left: 0;
+    z-index: 1;
+  }

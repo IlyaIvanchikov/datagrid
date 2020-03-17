@@ -2,6 +2,7 @@ import React from 'react'
 import { Form, Col } from 'react-bootstrap'
 import BooleanSearch from './BooleanSearch/BooleanSearch'
 import EnumSearch from './EnumSearch/EnumSearch'
+import CSV from './CSV/CSV'
 import './TableSearch.css'
 import { connect } from 'react-redux'
 import { changeHandler } from '../../store/actions/filterAll'
@@ -23,6 +24,7 @@ const TableSearch = props => (
       </Form.Group>
       <BooleanSearch />
       <EnumSearch />
+      <CSV />
     </Form.Row>
   </Form>
 )
