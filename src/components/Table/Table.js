@@ -11,7 +11,7 @@ class TableInfo extends Component {
         onClick={e => this.props.selectRow(e, index)}
         style={{ backgroundColor: 'grey' }}
       >
-        <td>{item.rank}</td>
+        <th>{item.rank}</th>
         <td className="table-string">{item.name}</td>
         <td>
           <a className="table-a" href={item.githubId}>
@@ -56,52 +56,45 @@ class TableInfo extends Component {
     })
     //console.log(this.props.data.length)
     return (
-      <Table className="table" striped bordered hover variant="dark">
-        <thead>
-          <tr >
-            <th onClick={e => this.props.sortGitHubId(e, 'rank')}>
-              #{' '}
-              {this.props.sortField === 'rank' ? (
-                <small>{this.props.sort}</small>
-              ) : null}
-            </th>
-            <th onClick={e => this.props.sortGitHubId(e, 'name')}>
-              Name{' '}
-              {this.props.sortField === 'name' ? (
-                <small>{this.props.sort}</small>
-              ) : null}
-            </th>
-            <th onClick={e => this.props.sortGitHubId(e, 'githubId')}>
-              GithubId{' '}
-              {this.props.sortField === 'githubId' ? (
-                <small>{this.props.sort}</small>
-              ) : null}
-            </th>
-            <th>TotalScore</th>
-            <th onClick={e => this.props.sortGitHubId(e, 'locationName')}>
-              LocationName{' '}
-              {this.props.sortField === 'locationName' ? (
-                <small>{this.props.sort}</small>
-              ) : null}
-            </th>
-            <th>TaskResults</th>
-            <th>IsActive</th>
-          </tr>
-        </thead>
-        <List
-          className="List"
-          outerElementType="tbody"
-          innerElementType="tr"
-          height={1000}
-          //itemData={this.props.data}
-          itemCount={this.props.data.length}
-          itemSize={50}
-          // style={{ display: "block" }}
-          width={700}
-        >
-          {test}
-        </List>
-      </Table>
+        <div className="scroller">
+          <Table className="table" striped bordered hover variant="dark">
+            <thead>
+              <tr>
+                <th
+                  className="sticky-col"
+                  onClick={e => this.props.sortGitHubId(e, 'rank')}
+                >
+                  #{' '}
+                  {this.props.sortField === 'rank' ? (
+                    <small>{this.props.sort}</small>
+                  ) : null}
+                </th>
+                <th onClick={e => this.props.sortGitHubId(e, 'name')}>
+                  Name{' '}
+                  {this.props.sortField === 'name' ? (
+                    <small>{this.props.sort}</small>
+                  ) : null}
+                </th>
+                <th onClick={e => this.props.sortGitHubId(e, 'githubId')}>
+                  GithubId{' '}
+                  {this.props.sortField === 'githubId' ? (
+                    <small>{this.props.sort}</small>
+                  ) : null}
+                </th>
+                <th>TotalScore</th>
+                <th onClick={e => this.props.sortGitHubId(e, 'locationName')}>
+                  LocationName{' '}
+                  {this.props.sortField === 'locationName' ? (
+                    <small>{this.props.sort}</small>
+                  ) : null}
+                </th>
+                <th>TaskResults</th>
+                <th>IsActive</th>
+              </tr>
+            </thead>
+            <tbody>{tableList}</tbody>
+          </Table>
+        </div>
     )
   }
 }

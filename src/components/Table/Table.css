@@ -7,34 +7,51 @@
     transition: color .3s;
 }
 
-/* .table-string {
+.table-string {
     text-overflow: ellipsis;
     width: 15%;
     overflow: hidden;
     white-space: nowrap;
     max-width: 0;
     text-overflow: ellipsis;
-} */
-
-/* .table, tbody {
-    display: block;
-}  */
-
-table,
-thead,
-tbody {
-  display: block;
-  width: 100vw;
 }
 
-tr {
-  display: flex;
+.table{
+    border-collapse: collapse;
 }
+td,
+th {
+  padding: 0.5em;
+}
+thead th {
+    background: #000;
+    color: #FFF;
+  }
+  
+  tbody th {
+    background: #000;
+    border-right: 1px solid #CCC;
+  }
 
-td {
-  flex: 1 1 auto;
-}
+.scroller {
+    overflow: scroll;
+    max-width: 1150px;
+    max-height: 590px;
+} 
 
-.List {
-  border: 1px solid #d9dddd;
-}
+thead th {
+    position: -webkit-sticky; /* for Safari */
+    position: sticky;
+    top: 0;
+  }
+  
+  tbody th {
+    position: -webkit-sticky; /* for Safari */
+    position: sticky;
+    left: 0;
+  }
+
+  thead th:first-child {
+    left: 0;
+    z-index: 1;
+  }
