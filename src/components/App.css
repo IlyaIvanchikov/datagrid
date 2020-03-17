@@ -2,6 +2,9 @@
   text-align: center;
 }
 
+body {
+  background-image: url("https://images.wallpaperscraft.ru/image/makro_kofe_minimalizm_84953_1600x900.jpg");
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;

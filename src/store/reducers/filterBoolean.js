@@ -23,13 +23,13 @@ const initialState = {
 export default function searchBooleanReducer(state = initialState, action) {
   switch (action.type) {
     case BOOLEAN:
-      const test = state.check.map(item =>
+      const filter = state.check.map(item =>
         item.id === action.id
           ? { ...item, checked: item.checked = true }
           : { ...item, checked: item.checked = false }
       )
       return {
-        check: test,
+        check: filter,
       }
 
     default:
