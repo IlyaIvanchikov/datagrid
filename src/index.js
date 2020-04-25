@@ -31,6 +31,7 @@ store.subscribe(
     })
   }, 1000)
 )
+
 const app = (
   <Provider store={store}>
     <App />

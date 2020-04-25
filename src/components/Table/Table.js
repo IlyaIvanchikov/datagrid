@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import { Table } from 'react-bootstrap'
 import './Table.css'
-
 class TableInfo extends Component {
   render() {
     const tableList = this.props.data.map((item, index) => (
       <tr
         key={item.id}
-        onClick={e => this.props.selectRow(e, index)}
+        onClick={e => this.props.selectRow(e, item)}
         style={{ backgroundColor: 'grey' }}
       >
         <th>{item.rank}</th>
@@ -23,11 +22,20 @@ class TableInfo extends Component {
         <td>{String(item.isActive)}</td>
       </tr>
     ))
-
     tableList.map((tr, index) => {
-      if (index === this.props.selectTR) {
+      if (Number(tr.key) === this.props.selectTR) {
         return (tr.props.style.backgroundColor = '#343a40')
       }
+      return tr
+    })
+
+    tableList.map((tr, index) => {
+      this.props.selectArrRow.map(item => {
+        if (Number(tr.key) === item) {
+          return (tr.props.style.backgroundColor = '#343a40')
+        }
+        return item
+      })
       return tr
     })
     return (
@@ -35,7 +43,15 @@ class TableInfo extends Component {
         <Table className="table" striped bordered hover variant="dark">
           <thead>
             <tr>
-              <th className="sticky-col">#</th>
+              <th
+                className="sticky-col"
+                onClick={e => this.props.sortGitHubId(e, 'rank')}
+              >
+                #{' '}
+                {this.props.sortField === 'rank' ? (
+                  <small>{this.props.sort}</small>
+                ) : null}
+              </th>
               <th onClick={e => this.props.sortGitHubId(e, 'name')}>
                 Name{' '}
                 {this.props.sortField === 'name' ? (
@@ -55,8 +71,18 @@ class TableInfo extends Component {
                   <small>{this.props.sort}</small>
                 ) : null}
               </th>
-              <th>TaskResults</th>
-              <th>IsActive</th>
+              <th onClick={e => this.props.sortGitHubId(e, 'taskResults')}>
+                TaskResults{' '}
+                {this.props.sortField === 'taskResults' ? (
+                  <small>{this.props.sort}</small>
+                ) : null}
+              </th>
+              <th onClick={e => this.props.sortGitHubId(e, 'isActive')}>
+                IsActive{' '}
+                {this.props.sortField === 'isActive' ? (
+                  <small>{this.props.sort}</small>
+                ) : null}
+              </th>
             </tr>
           </thead>
           <tbody>{tableList}</tbody>

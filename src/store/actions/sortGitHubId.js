@@ -168,7 +168,6 @@ export function DeleteRow(e) {
 }
 export function sortGitHubId(e, sortField) {
   return (dispatch, getState) => {
-    console.log(e.target.hidden)
     if (!e.shiftKey) {
       const state = getState().sort
       const cloneData = state.data.concat()
